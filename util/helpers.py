@@ -129,7 +129,7 @@ def draw_kp(
         PIL.Image.Image: _description_
     """
 
-    # Extract keypoints co-ordinates
+    # Extract keypoints coordinates
     kp = output["keypoints"][0]
 
     # ==== Image setup ==== #

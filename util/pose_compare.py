@@ -30,16 +30,16 @@ class PoseCompare:
                 img (Tensor): Input tensor
 
         Returns:
-                Tuple of output dictionary and angle dictioanry
+                Tuple of output dictionary and angle dictionary
 
         Notes:
                 Output dictionary: ``keypointrcnn_resnet50_fpn`` output
-                Angle dictioanry: See ``get_angle`` from helpers.py
+                Angle dictionary: See ``get_angle`` from helpers.py
         """
         # Read and transform image
         img = transforms(img)
 
-        # Transfers to CUDA memeory if avaiable
+        # Transfers to CUDA memory if available
         if have_cuda:
             img = img.cuda()
 
@@ -47,7 +47,7 @@ class PoseCompare:
         output = model([img])[0]
 
         # Extract only the first person and convert all tensor to numpy
-        # This will also release memeory from CUDA
+        # This will also release memory from CUDA
         for k, v in output.items():
             output[k] = v[0].cpu().detach().numpy()
 
@@ -221,10 +221,10 @@ class PoseCompare:
             self.img_ref = F.to_pil_image(transforms(img))
 
     def calc_angle_diff(self) -> Dict[str, int]:
-        """Calcualte target and reference's angle difference
+        """Calculate target and reference's angle difference
 
         Returns:
-                A dictioanry containing the joint as key, angle difference as the value
+                A dictionary containing the joint as key, angle difference as the value
         """
         angle_diff = {k: self.angle_ref[k] - self.angle_trgt[k] for k in self.angle_ref}
 
